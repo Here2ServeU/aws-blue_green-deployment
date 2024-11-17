@@ -119,7 +119,7 @@ aws cloudfront create-distribution --distribution-config file://distribution-con
     "Items": [
       {
         "Id": "BlueBucketOrigin",
-        "DomainName": "t2s-services-blue.s3-website-us-east-1.amazonaws.com",
+        "DomainName": "t2s-services-blue.s3.us-east-1.amazonaws.com",
         "OriginPath": "",
         "CustomHeaders": {
           "Quantity": 0
