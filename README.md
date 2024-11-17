@@ -5,24 +5,24 @@ This guide demonstrates how to implement Blue-Green Deployment for a static webs
 ----
 ## Prerequisites
 
-AWS Account: Ensure you have access to AWS.
+- AWS Account: Ensure you have access to AWS.
 
-AWS CLI Installed: Download and configure the AWS CLI (AWS CLI Installation Guide).
+- AWS CLI Installed: Download and configure the AWS CLI (AWS CLI Installation Guide).
 
-Domain Name: You need a domain (e.g., t2s-services.com) and set it up in Route 53 (optional for custom domain).
+- Domain Name: You need a domain (e.g., t2s-services.com) and set it up in Route 53 (optional for custom domain).
 
-IAM Permissions: Ensure your user has permissions to manage S3, CloudFront, and Route 53.
+- IAM Permissions: Ensure your user has permission to manage S3, CloudFront, and Route 53.
 
 ----
 ## Use Cases
 
-Zero Downtime Deployments: Deploy updates without affecting live traffic.
+- Zero Downtime Deployments: Deploy updates without affecting live traffic.
 
-Testing and Validation: Test updates in the Green environment before switching traffic.
+- Testing and Validation: Test updates in the Green environment before switching traffic.
 
-Rollback Capability: Quickly revert to the Blue environment if issues arise.
+- Rollback Capability: Quickly revert to the Blue environment if issues arise.
 
-High Availability: Ensure website availability during updates.
+- High Availability: Ensure website availability during updates.
 
 ----
 ## Step-by-Step Guide
@@ -100,7 +100,7 @@ aws s3 cp ./green/index.html s3://t2s-services-green/index.html
 
 ### Step 4: Configure CloudFront Distribution
 
-Use CloudFront to manage traffic switching.
+**Use CloudFront to manage traffic switching.**
 
 - Create a CloudFront Distribution with the Blue Bucket as the initial origin.
 - Use the AWS CLI or Console:
@@ -140,7 +140,8 @@ aws route53 change-resource-record-sets --hosted-zone-id <hosted-zone-id> --chan
 ```
 
 ### Step 6: Deploy and Switch Between Environments
-- Deploy to Green Environment
+Deploy to Green Environment
+
 Update the CloudFront origin to point to the Green Bucket:
 ```bash
 aws cloudfront update-distribution --id <distribution-id> --distribution-config file://update-green.json
