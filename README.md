@@ -36,7 +36,7 @@ aws s3 mb s3://t2s-services-blue --region us-east-1
 
 # Create Green Environment Bucket
 aws s3 mb s3://t2s-services-green --region us-east-1
-```bash
+```
 
 Enable static website hosting on both buckets:
 ```bash
