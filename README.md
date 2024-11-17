@@ -104,10 +104,6 @@ aws s3 cp ./green/index.html s3://t2s-services-green/index.html
 
 **Use CloudFront to manage traffic switching.**
 
-- Create the CloudFront Distribution
-```bash
-aws cloudfront create-distribution --distribution-config file://distribution-config.json
-```
 - Create a file named distribution-config.json with the following content:
 ```bash
 {
@@ -169,6 +165,12 @@ aws cloudfront create-distribution --distribution-config file://distribution-con
   }
 }
 ```
+
+- Create the CloudFront Distribution
+```bash
+aws cloudfront create-distribution --distribution-config file://distribution-config.json
+```
+
 - Verify the Distribution
 ```bash
 aws cloudfront list-distributions --query "DistributionList.Items[*].[Id, DomainName]" --output table
