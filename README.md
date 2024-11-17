@@ -104,10 +104,79 @@ aws s3 cp ./green/index.html s3://t2s-services-green/index.html
 
 **Use CloudFront to manage traffic switching.**
 
-- Create a CloudFront Distribution with the Blue Bucket as the initial origin.
-- Use the AWS CLI or Console:
-	•	Set the Origin Domain Name to t2s-services-blue.s3-website-us-east-1.amazonaws.com.
-	•	Note the CloudFront Distribution Domain Name (e.g., d12345.cloudfront.net).
+- Create the CloudFront Distribution
+```bash
+aws cloudfront create-distribution --distribution-config file://distribution-config.json
+```
+- Create a file named distribution-config.json with the following content:
+```bash
+{
+  "CallerReference": "t2s-services-blue-distribution",
+  "Comment": "CloudFront Distribution for Blue Bucket",
+  "DefaultRootObject": "index.html",
+  "Origins": {
+    "Quantity": 1,
+    "Items": [
+      {
+        "Id": "BlueBucketOrigin",
+        "DomainName": "t2s-services-blue.s3-website-us-east-1.amazonaws.com",
+        "OriginPath": "",
+        "CustomHeaders": {
+          "Quantity": 0
+        },
+        "S3OriginConfig": {
+          "OriginAccessIdentity": ""
+        }
+      }
+    ]
+  },
+  "DefaultCacheBehavior": {
+    "TargetOriginId": "BlueBucketOrigin",
+    "ViewerProtocolPolicy": "redirect-to-https",
+    "AllowedMethods": {
+      "Quantity": 2,
+      "Items": ["HEAD", "GET"],
+      "CachedMethods": {
+        "Quantity": 2,
+        "Items": ["HEAD", "GET"]
+      }
+    },
+    "Compress": true,
+    "ForwardedValues": {
+      "QueryString": false,
+      "Cookies": {
+        "Forward": "none"
+      },
+      "Headers": {
+        "Quantity": 0
+      },
+      "QueryStringCacheKeys": {
+        "Quantity": 0
+      }
+    },
+    "MinTTL": 0
+  },
+  "Enabled": true,
+  "PriceClass": "PriceClass_100",
+  "ViewerCertificate": {
+    "CloudFrontDefaultCertificate": true
+  },
+  "Restrictions": {
+    "GeoRestriction": {
+      "RestrictionType": "none",
+      "Quantity": 0
+    }
+  }
+}
+```
+- Verify the Distribution
+```bash
+aws cloudfront list-distributions --query "DistributionList.Items[*].[Id, DomainName]" --output table
+```
+- Test the CloudFront Distribution
+```bash
+https://<CloudFront_Domain_Name>
+```
 
 ### Step 5: Configure Route 53 (Optional)
 
