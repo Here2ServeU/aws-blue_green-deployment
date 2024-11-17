@@ -166,6 +166,7 @@ aws cloudfront update-distribution --id <distribution-id> --distribution-config 
 ```
 
 ***Invalidate Cache**
+
 Force cache refresh to reflect the Green deployment:
 ```bash
 aws cloudfront create-invalidation --distribution-id <distribution-id> --paths "/*"
