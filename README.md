@@ -29,10 +29,14 @@ This guide demonstrates how to implement Blue-Green Deployment for a static webs
 
 ### Step 1: Create S3 Buckets for Blue and Green Environments
 
+Create a Blue Environment Bucket
 ```bash
-aws s3 mb s3://t2s-services-blue --region us-east-1 # Create Blue Environment Bucket
+aws s3 mb s3://t2s-services-blue --region us-east-1
+``` 
 
-aws s3 mb s3://t2s-services-green --region us-east-1 # Create Green Environment Bucket
+Create a Green Environment Bucket
+```bash
+aws s3 mb s3://t2s-services-green --region us-east-1 
 ```
 
 Enable static website hosting on both buckets:
