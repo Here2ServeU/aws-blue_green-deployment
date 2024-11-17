@@ -90,11 +90,13 @@ Green Environment (green/index.html):
 
 ### Step 3: Upload Files to S3
 Upload the index.html files to the respective S3 buckets.
-```bash
-# Upload Blue Environment File
-aws s3 cp ./blue/index.html s3://t2s-services-blue/index.html
 
-# Upload Green Environment File
+- Upload Blue Environment File
+```bash
+aws s3 cp ./blue/index.html s3://t2s-services-blue/index.html
+```
+- Upload Green Environment File
+```bash
 aws s3 cp ./green/index.html s3://t2s-services-green/index.html
 ```
 
