@@ -41,7 +41,6 @@ aws s3 mb s3://t2s-services-green --region us-east-1
 
 Enable static website hosting on both buckets:
 ```bash
-# Enable Static Website Hosting
 aws s3 website s3://t2s-services-blue/ --index-document index.html
 aws s3 website s3://t2s-services-green/ --index-document index.html
 ```
