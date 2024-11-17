@@ -45,6 +45,26 @@ aws s3 website s3://t2s-services-blue/ --index-document index.html
 aws s3 website s3://t2s-services-green/ --index-document index.html
 ```
 
+Ensure the Bucket Policy Allows Public Access
+- Create a file, s3-bucket-policy.json, and add the following content: 
+```bash
+"Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::<bucket-name>/*"
+        }
+    ]
+```
+- Replace <bucket-name> with the desired name.
+- Update your Bucket policy with the above policy to allow public read access.
+```bash
+aws s3api put-bucket-policy --bucket <bucket-name> --policy file://s3-bucket-policy
+```
+
+
 ### Step 2: Create index.html for Blue and Green Environments
 Blue Environment (blue/index.html):
 ```bash
