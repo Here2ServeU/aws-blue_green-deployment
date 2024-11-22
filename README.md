@@ -66,6 +66,15 @@ Ensure the Bucket Policy Allows Public Access
 aws s3api put-bucket-policy --bucket <bucket-name> --policy file://s3-bucket-policy
 ```
 
+If you get an error message related to "AccessDenied" when calling the PutBucketPolicy operation, run this command first: 
+```bash
+aws s3api put-public-access-block --bucket t2s-services-blue --public-access-block-configuration '{
+    "BlockPublicAcls": false,
+    "IgnorePublicAcls": false,
+    "BlockPublicPolicy": false,
+    "RestrictPublicBuckets": false
+}'
+```
 
 ### Step 2: Create index.html for Blue and Green Environments
 Blue Environment (blue/index.html):
