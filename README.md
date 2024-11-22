@@ -76,6 +76,16 @@ aws s3api put-public-access-block --bucket t2s-services-blue --public-access-blo
 }'
 ```
 
+Do it again, but this time, for "t2s-services-green." 
+```bash
+aws s3api put-public-access-block --bucket t2s-services-green --public-access-block-configuration '{
+    "BlockPublicAcls": false,
+    "IgnorePublicAcls": false,
+    "BlockPublicPolicy": false,
+    "RestrictPublicBuckets": false
+}'
+```
+
 The command ensures that public policies are allowed on the bucket. 
 
 ### Step 2: Create index.html for Blue and Green Environments
