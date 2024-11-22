@@ -146,114 +146,15 @@ aws s3 cp ./green/index.html s3://t2s-services-green/index.html
 ### Step 4: Configure CloudFront Distribution
 
 **Use CloudFront to manage traffic switching.**
-
-- Create a file named distribution-config.json with the following content:
-```bash
-{
-  "CallerReference": "t2s-services-blue-distribution",
-  "Comment": "CloudFront Distribution for Blue Bucket",
-  "DefaultRootObject": "index.html",
-  "Origins": {
-    "Quantity": 1,
-    "Items": [
-      {
-        "Id": "BlueBucketOrigin",
-        "DomainName": "t2s-services-blue.s3.us-east-1.amazonaws.com",
-        "OriginPath": "",
-        "CustomHeaders": {
-          "Quantity": 0
-        },
-        "S3OriginConfig": {
-          "OriginAccessIdentity": ""
-        }
-      }
-    ]
-  },
-  "DefaultCacheBehavior": {
-    "TargetOriginId": "BlueBucketOrigin",
-    "ViewerProtocolPolicy": "redirect-to-https",
-    "AllowedMethods": {
-      "Quantity": 2,
-      "Items": ["HEAD", "GET"],
-      "CachedMethods": {
-        "Quantity": 2,
-        "Items": ["HEAD", "GET"]
-      }
-    },
-    "Compress": true,
-    "ForwardedValues": {
-      "QueryString": false,
-      "Cookies": {
-        "Forward": "none"
-      },
-      "Headers": {
-        "Quantity": 0
-      },
-      "QueryStringCacheKeys": {
-        "Quantity": 0
-      }
-    },
-    "MinTTL": 0
-  },
-  "Enabled": true,
-  "PriceClass": "PriceClass_100",
-  "ViewerCertificate": {
-    "CloudFrontDefaultCertificate": true
-  },
-  "Restrictions": {
-    "GeoRestriction": {
-      "RestrictionType": "none",
-      "Quantity": 0
-    }
-  }
-}
-```
-
-- Create the CloudFront Distribution
-```bash
-aws cloudfront create-distribution --distribution-config file://distribution-config.json
-```
-
-- Verify the Distribution
-```bash
-aws cloudfront list-distributions --query "DistributionList.Items[*].[Id, DomainName]" --output table
-```
-- Test the CloudFront Distribution
-```bash
-https://<CloudFront_Domain_Name>
-```
+- On the Console. 
 
 ### Step 5: Configure Route 53 (Optional)
 
 Point your domain to the CloudFront distribution.
 
-```bash
-# Create a Hosted Zone (if not already created)
-aws route53 create-hosted-zone --name "t2s-services.com" --caller-reference "t2s-route53"
+Create a Hosted Zone (if not already created)
 
-# Create Alias Record for www.t2s-services.com
-aws route53 change-resource-record-sets --hosted-zone-id <hosted-zone-id> --change-batch file://record.json
-```
-
-**record.json:** 
-```bash
-{
-  "Changes": [
-    {
-      "Action": "CREATE",
-      "ResourceRecordSet": {
-        "Name": "www.t2s-services.com",
-        "Type": "A",
-        "AliasTarget": {
-          "HostedZoneId": "Z2FDTNDATAQYW2",
-          "DNSName": "d12345.cloudfront.net",
-          "EvaluateTargetHealth": false
-        }
-      }
-    }
-  ]
-}
-```
+Create Alias Record for www.t2s-services.com
 
 ### Step 6: Deploy and Switch Between Environments
 Deploy to Green Environment
@@ -289,7 +190,7 @@ aws cloudfront create-invalidation --distribution-id <distribution-id> --paths "
 ```
 
 **Rollback to Blue Environment**
-Follow the same steps to point CloudFront back to the Blue Bucket.
+You can follow the same steps to point CloudFront back to the Blue Bucket.
 
 ### Step 7: Test and Verify
 - Open the domain (www.t2s-services.com) and verify the content.
