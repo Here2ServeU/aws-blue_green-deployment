@@ -76,6 +76,8 @@ aws s3api put-public-access-block --bucket t2s-services-blue --public-access-blo
 }'
 ```
 
+The command ensures that public policies are allowed on the bucket. 
+
 ### Step 2: Create index.html for Blue and Green Environments
 Blue Environment (blue/index.html):
 ```bash
