@@ -48,15 +48,17 @@ aws s3 website s3://t2s-services-green/ --index-document index.html
 Ensure the Bucket Policy Allows Public Access
 - Create a file, s3-bucket-policy.json, and add the following content: 
 ```bash
-"Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::<bucket-name>/*"
-        }
-    ]
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::t2s-services-blue/*"
+    }
+  ]
+}
 ```
 - Replace <bucket-name> with the desired name.
 - Update your Bucket policy with the above policy to allow public read access.
