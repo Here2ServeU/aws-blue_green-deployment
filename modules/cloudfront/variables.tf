@@ -18,3 +18,8 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "logging_bucket" {
+  description = "S3 bucket for CloudFront access logs"
+  type        = string
+}
