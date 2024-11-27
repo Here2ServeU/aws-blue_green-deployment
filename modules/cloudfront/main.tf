@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "distribution" {
   default_root_object = "index.html"
 
   default_cache_behavior {
-    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
+    allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = var.origin_id
 
@@ -26,15 +26,12 @@ resource "aws_cloudfront_distribution" "distribution" {
     }
 
     compress = true
-    min_ttl  = 0
-    default_ttl = 3600
-    max_ttl  = 86400
   }
 
   logging_config {
-    bucket = var.logging_bucket
+    bucket          = var.logging_bucket
     include_cookies = false
-    prefix = "cloudfront-logs/"
+    prefix          = "cloudfront-logs/"
   }
 
   price_class = "PriceClass_100"
