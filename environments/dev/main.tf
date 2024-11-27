@@ -1,3 +1,10 @@
+module "dns" {
+  source      = "../../modules/dns"
+  domain_name = "t2s-services.com"
+  record_name = "www"
+  target      = module.cloudfront_blue.cloudfront_domain_name
+}
+
 module "s3_blue" {
   source      = "../../modules/s3_bucket"
   name        = "t2s-services-blue"
