@@ -4,6 +4,13 @@ resource "aws_s3_bucket" "bucket" {
   tags = var.tags
 }
 
+resource "aws_s3_bucket_object" "index_file" {
+  bucket       = aws_s3_bucket.bucket.id
+  key          = "index.html"
+  source       = "${path.module}/${var.index_file}"
+  content_type = "text/html"
+}
+
 resource "aws_s3_bucket_public_access_block" "public_access" {
   bucket                  = aws_s3_bucket.bucket.id
   block_public_acls       = true
