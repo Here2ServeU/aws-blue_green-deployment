@@ -17,6 +17,13 @@ resource "aws_s3_bucket_website_configuration" "website" {
   }
 }
 
+resource "aws_s3_bucket_object" "index_file" {
+  bucket = aws_s3_bucket.bucket.id
+  key    = "index.html"
+  source = var.index_file
+  content_type = "text/html"
+}
+
 resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.bucket.id
 
