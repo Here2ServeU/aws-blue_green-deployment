@@ -10,7 +10,7 @@ The deployment supports multiple environments: dev, stage, and prod.
 
 **1. S3 Bucket Module**
 
-The s3_bucket module creates S3 buckets for the Blue and Green environments with static website hosting enabled.
+The s3_bucket module creates S3 buckets for the Blue and Green environments, enabling static website hosting.
 
 Key Resources:
 	•	S3 Bucket
@@ -149,5 +149,5 @@ terraform destroy -var-file="terraform.tfvars"
 ```
 
 ---
-**Author**
-This project was created for T2S Services. Contact the author for further assistance or feature requests.
+#### Author
+This project was created for T2S Services. Please reach out to the author for further assistance or feature requests.
