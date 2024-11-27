@@ -38,9 +38,9 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
   })
 }
 
-resource "aws_s3_bucket_object" "index_file" {
-  bucket       = aws_s3_bucket.bucket.id
-  key          = "index.html"
-  source       = "${path.module}/${var.index_file}"
+resource "aws_s3_object" "index_file" {
+  bucket = aws_s3_bucket.bucket.id
+  key    = "index.html"
+  source = "${path.module}/${var.index_file}"
   content_type = "text/html"
 }
