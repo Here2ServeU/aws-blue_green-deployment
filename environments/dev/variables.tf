@@ -8,3 +8,8 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "zone_id" {
+  description = "Route 53 Zone ID"
+  type        = string
+}
