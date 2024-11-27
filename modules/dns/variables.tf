@@ -1,14 +1,14 @@
-variable "zone_id" {
-  description = "Route 53 Zone ID"
+variable "domain_name" {
+  description = "The domain name for the DNS zone"
   type        = string
 }
 
 variable "record_name" {
-  description = "Record name"
+  description = "The subdomain or record name"
   type        = string
 }
 
 variable "target" {
-  description = "Target value for the DNS record"
+  description = "Target value for the DNS record (e.g., CloudFront distribution domain)"
   type        = string
 }
