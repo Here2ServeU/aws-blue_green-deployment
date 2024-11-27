@@ -15,3 +15,10 @@ module "s3_green" {
   }
   index_file  = var.index_file
 }
+
+resource "aws_s3_bucket_object" "index_file" {
+  bucket       = aws_s3_bucket.bucket.id
+  key          = "index.html"
+  source       = var.index_file
+  content_type = "text/html"
+}
