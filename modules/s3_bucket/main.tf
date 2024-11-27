@@ -1,26 +1,20 @@
-module "s3_blue" {
-  source      = "../../modules/s3_bucket"
-  name        = "t2s-services-blue"
-  tags        = {
-    environment = var.environment
-  }
-  index_file  = var.index_file
+resource "aws_s3_bucket" "bucket" {
+  bucket = "${var.name}-${terraform.workspace}"
+  acl    = "private"
+
+  tags = var.tags
 }
 
-module "s3_green" {
-  source      = "../../modules/s3_bucket"
-  name        = "t2s-services-green"
-  tags        = {
-    environment = var.environment
-  }
-  index_file  = var.index_file
-}
+resource "aws_s3_bucket_website_configuration" "website" {
+  bucket = aws_s3_bucket.bucket.id
 
-resource "aws_s3_bucket_object" "index_file" {
-  bucket       = aws_s3_bucket.bucket.id
-  key          = "index.html"
-  source       = var.index_file
-  content_type = "text/html"
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
+  }
 }
 
 resource "aws_s3_bucket_policy" "bucket_policy" {
@@ -37,4 +31,11 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
       }
     ]
   })
+}
+
+resource "aws_s3_bucket_object" "index_file" {
+  bucket       = aws_s3_bucket.bucket.id
+  key          = "index.html"
+  source       = "${path.module}/${var.index_file}"
+  content_type = "text/html"
 }
