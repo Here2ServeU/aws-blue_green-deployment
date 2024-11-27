@@ -1,19 +1,21 @@
 module "s3_blue" {
-  source = "../../modules/s3_bucket"
-  name   = "t2s-services-blue"
-  tags   = {
+  source      = "../../modules/s3_bucket"
+  name        = "t2s-services-blue"
+  tags        = {
     environment = "dev"
     service     = "t2s-services"
   }
+  index_file  = "blue-index.html"
 }
 
 module "s3_green" {
-  source = "../../modules/s3_bucket"
-  name   = "t2s-services-green"
-  tags   = {
+  source      = "../../modules/s3_bucket"
+  name        = "t2s-services-green"
+  tags        = {
     environment = "dev"
     service     = "t2s-services"
   }
+  index_file  = "green-index.html"
 }
 
 module "cloudfront_blue" {
