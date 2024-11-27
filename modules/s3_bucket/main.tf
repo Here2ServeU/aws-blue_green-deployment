@@ -5,6 +5,11 @@ resource "aws_s3_bucket" "bucket" {
   tags = var.tags
 }
 
+resource "aws_s3_bucket" "cloudfront_logs" {
+  bucket = "t2s-cloudfront-logs"
+  acl    = "log-delivery-write"
+}
+
 resource "aws_s3_bucket_acl" "bucket_acl" {
   bucket = aws_s3_bucket.bucket.id
   acl    = "private"
