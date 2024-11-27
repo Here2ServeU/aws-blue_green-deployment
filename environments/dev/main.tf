@@ -22,7 +22,8 @@ module "cloudfront_blue" {
   source                = "../../modules/cloudfront"
   origin_domain_name    = module.s3_blue.website_endpoint
   origin_id             = "S3-t2s-services-blue"
-  origin_access_identity = "origin-access-identity/cloudfront/E34T2SERVICESOAI"
+  origin_access_identity = "origin-access-identity/cloudfront/E34EXAMPLEOAI"
+  logging_bucket        = "t2s-cloudfront-logs"
   tags                  = {
     environment = var.environment
     service     = "t2s-services"
