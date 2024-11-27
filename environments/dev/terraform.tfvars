@@ -4,3 +4,4 @@ tags = {
   owner       = "t2s-dev"
   application = "t2s-services"
 }
+logging_bucket = "t2s-cloudfront-logs"
