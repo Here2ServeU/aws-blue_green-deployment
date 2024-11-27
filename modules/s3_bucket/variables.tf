@@ -1,15 +1,15 @@
 variable "name" {
-  description = "Name of the S3 bucket"
-  type        = string
-}
-
-variable "index_file" {
-  description = "Path to the index.html file for the environment"
+  description = "Base name for the S3 bucket"
   type        = string
 }
 
 variable "tags" {
-  description = "Tags to apply to the bucket"
+  description = "Tags for the S3 bucket"
   type        = map(string)
   default     = {}
+}
+
+variable "index_file" {
+  description = "Name of the index.html file to upload"
+  type        = string
 }
